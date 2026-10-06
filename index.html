@@ -1,35 +1,325 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>サンプルページ</title>
-  <style>
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Noto Sans JP", sans-serif;
-      background: #fff;
-      color: #222;
-      text-align: center;
-      padding: 16px;
-    }
-    h1 {
-      font-size: 2.5rem;
-      margin: 0 0 12px;
-    }
-    p {
-      font-size: 1.1rem;
-      margin: 0;
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>スマホだけでサイトを公開する | Hackatsuon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --accent:#D97757;
+  --accent-soft:#F6E4DA;
+  --ink:#141413;
+  --sub:#87867F;
+  --line:#E0DDD4;
+  --paper:#FAF9F5;
+  --wash:#F0EEE6;
+  --dark:#262624;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Noto Sans JP","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
+  font-size:16px;
+  line-height:1.8;
+  -webkit-text-size-adjust:100%;
+}
+img{max-width:100%;display:block}
+a{color:var(--accent)}
+code{font-family:inherit;background:var(--wash);padding:0 4px;border-radius:3px}
+h1,h2{font-family:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif;font-weight:600}
+
+.wrap{max-width:520px;margin:0 auto;padding:0 20px 64px}
+
+/* hero */
+.hero{padding:44px 0 8px}
+.hero .wrap{padding-bottom:0}
+.hero .tag{font-size:13px;color:var(--sub);margin:0 0 14px}
+.hero h1{font-size:32px;line-height:1.35;margin:0;letter-spacing:.01em}
+.flow{
+  display:flex;align-items:stretch;margin:28px 0 0;padding:18px 0 0;list-style:none;
+  border-top:1px solid var(--line);
+}
+.flow li{flex:1;position:relative;font-size:14px;line-height:1.5;padding-right:12px;color:var(--sub)}
+.flow li b{display:block;font-size:22px;color:var(--ink);margin-bottom:2px;font-family:"Noto Serif JP",serif;font-weight:600}
+.flow li+li::before{
+  content:"";position:absolute;left:-10px;top:12px;width:0;height:0;
+  border-left:6px solid var(--accent);border-top:5px solid transparent;border-bottom:5px solid transparent;
+}
+
+/* notes */
+.ready{
+  background:var(--wash);border-left:4px solid var(--accent);
+  padding:16px 18px;margin:28px 0 8px;border-radius:0 8px 8px 0;
+}
+.ready h2{font-size:15px;margin:0 0 8px;font-family:inherit;font-weight:700}
+.ready ul{margin:0;padding-left:1.2em}
+.ready li{margin:2px 0}
+
+/* steps */
+.step{padding:34px 0 10px;border-bottom:1px solid var(--line)}
+.step header{display:flex;align-items:baseline;gap:12px;margin-bottom:4px}
+.num{
+  flex:none;width:34px;height:34px;border-radius:50%;
+  background:var(--accent);color:#fff;font-weight:700;font-size:17px;
+  display:flex;align-items:center;justify-content:center;position:relative;top:6px;
+  font-family:"Noto Sans JP",sans-serif;
+}
+.step h2{font-size:22px;line-height:1.4;margin:0}
+.once{display:inline-block;font-size:12px;color:var(--accent);border:1px solid var(--accent);border-radius:4px;padding:0 6px;line-height:1.6;margin-left:6px;vertical-align:middle;font-family:"Noto Sans JP",sans-serif;font-weight:400}
+
+.shot{margin:18px 0 16px;display:grid;grid-template-columns:1fr;gap:14px}
+.shot.two{grid-template-columns:1fr 1fr}
+.shot figure{margin:0}
+.shot .ph{
+  aspect-ratio:9/16;border:2px dashed var(--line);border-radius:14px;background:var(--wash);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--sub);font-size:13px;text-align:center;padding:12px;line-height:1.5;
+}
+.shot img{border-radius:14px;border:1px solid var(--line)}
+.shot figcaption{font-size:13px;color:var(--sub);margin-top:6px;line-height:1.5}
+
+.step p{margin:0 0 10px}
+.step ol,.step ul{margin:0 0 10px;padding-left:1.4em}
+.step li{margin:4px 0}
+
+.say{
+  position:relative;background:var(--dark);color:#F5F4EF;
+  padding:14px 16px;border-radius:14px 14px 14px 4px;
+  margin:12px 0 14px;font-size:15px;line-height:1.7;white-space:pre-wrap;
+}
+.say .lbl{font-size:12px;color:var(--accent);display:block;margin-bottom:4px}
+.say.long{font-size:14px;line-height:1.65}
+.copy{
+  position:absolute;top:10px;right:10px;
+  background:var(--accent);color:#fff;border:0;
+  border-radius:6px;font:inherit;font-size:12px;padding:4px 12px;cursor:pointer;
+}
+.copy:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.hint{
+  font-size:14px;border-left:3px solid var(--accent);background:var(--accent-soft);
+  padding:8px 12px;margin:10px 0 14px;border-radius:0 8px 8px 0;
+}
+
+/* trouble */
+.trouble{padding:34px 0 0}
+.trouble h2{font-size:20px;margin:0 0 14px}
+.trouble dl{margin:0}
+.trouble dt{font-weight:700;margin-top:14px}
+.trouble dd{margin:2px 0 0}
+.trouble .shot{margin:12px 0 4px}
+
+footer{margin-top:48px;font-size:12px;color:var(--sub);border-top:1px solid var(--line);padding-top:14px}
+
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ink:#F5F4EF;--sub:#B0AEA5;--line:#3F3E3A;--paper:#262624;--wash:#30302E;--dark:#1A1918;--accent-soft:#3D2E27;
+  }
+}
+:root[data-theme="dark"]{--ink:#F5F4EF;--sub:#B0AEA5;--line:#3F3E3A;--paper:#262624;--wash:#30302E;--dark:#1A1918;--accent-soft:#3D2E27}
+
+/* print: A4, two columns */
+@page{size:A4;margin:12mm}
+@media print{
+  :root{--ink:#000;--sub:#555;--line:#bbb;--paper:#fff;--wash:#f1f1f1;--accent-soft:#f6e4da}
+  body{font-size:9.5pt;line-height:1.5}
+  .hero{padding:4mm 0 2mm}
+  .hero h1{font-size:18pt}
+  .wrap{max-width:none;padding:0}
+  .body{column-count:2;column-gap:8mm}
+  .step,.ready,.trouble{break-inside:avoid;padding:4mm 0 2mm}
+  .shot{gap:6px;margin:3mm 0}
+  .shot .ph,.shot img{max-height:48mm;width:auto;margin:0 auto}
+  .say,.num,.hint{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .say{padding:2mm 3mm;margin:2mm 0}
+  .copy{display:none}
+  footer{column-span:all}
+}
+</style>
 </head>
 <body>
-  <h1>Hello World</h1>
-  <p>これはサンプルページです</p>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="tag">Hackatsuon はじめてガイド</p>
+    <h1>スマホだけで、<br>自分のサイトを公開する</h1>
+    <ol class="flow">
+      <li><b>書く</b>作りたいものを書く</li>
+      <li><b>反映</b>「反映して」と言う</li>
+      <li><b>見る</b>URL を開く</li>
+    </ol>
+  </div>
+</header>
+
+<main class="wrap body">
+
+  <section class="ready">
+    <h2>用意するもの</h2>
+    <ul>
+      <li>Android スマホ</li>
+      <li>Claude アプリ（有料プランでログイン済み）</li>
+      <li>GitHub アカウント（無料。ステップ 1 で作れます）</li>
+    </ul>
+  </section>
+
+  <!-- 1 -->
+  <section class="step" id="s1">
+    <header><span class="num">1</span><h2>GitHub でサイトの置き場所を作る<span class="once">最初の1回だけ</span></h2></header>
+    <ol>
+      <li>スマホのブラウザで <a href="https://github.com/signup">github.com/signup</a> を開き、アカウントを作る</li>
+      <li><a href="https://github.com/new">github.com/new</a> を開く。名前は英数字で短く（例: <code>my-site</code>）。Public のまま</li>
+      <li>「Add README」を On にして「Create repository」</li>
+    </ol>
+    <div class="shot two">
+      <figure><img src="./img/s1-signup.png" alt="GitHub のサインアップ画面"><figcaption>メールとパスワードを入れて Create account</figcaption></figure>
+      <figure><img src="./img/s1-new-top.png" alt="新しいリポジトリの作成画面（上）"><figcaption>①名前を入れる ②Public のまま</figcaption></figure>
+      <figure><img src="./img/s1-new-bottom.png" alt="新しいリポジトリの作成画面（下）"><figcaption>①Add README を On ②Create repository</figcaption></figure>
+      <figure><img src="./img/s1-done.png" alt="作成直後のリポジトリ画面"><figcaption>この画面になれば OK</figcaption></figure>
+    </div>
+    <p class="hint">この「リポジトリ」が、サイトのファイルの置き場所です。1サイトにつき1つ作ります。</p>
+  </section>
+
+  <!-- 2 -->
+  <section class="step" id="s2">
+    <header><span class="num">2</span><h2>公開のスイッチを入れる<span class="once">最初の1回だけ</span></h2></header>
+    <ol>
+      <li>リポジトリの画面で「More」→「Settings」</li>
+      <li>下のほうにある「Pages」</li>
+      <li>Branch の「None」を押して「main」を選ぶ</li>
+      <li>「Save」</li>
+    </ol>
+    <div class="shot two">
+      <figure><img src="./img/s2-more.png" alt="More メニューから Settings を選ぶ"><figcaption>①More ②Settings</figcaption></figure>
+      <figure><img src="./img/s2-pages.png" alt="Settings の一覧にある Pages"><figcaption>一覧の下のほうに Pages</figcaption></figure>
+      <figure><img src="./img/s2-branch.png" alt="ブランチの選択で main を選ぶ"><figcaption>①None を押す ②main を選ぶ</figcaption></figure>
+      <figure><img src="./img/s2-save.png" alt="main と /(root) を確認して Save"><figcaption>「main」「/ (root)」のまま Save</figcaption></figure>
+    </div>
+    <p>あなたのサイトの URL はこの形になります。</p>
+    <p class="say"><span class="lbl">URL</span>https://<b>ユーザー名</b>.github.io/<b>リポジトリ名</b>/</p>
+  </section>
+
+  <!-- 3 -->
+  <section class="step" id="s3">
+    <header><span class="num">3</span><h2>Claude アプリと GitHub をつなぐ<span class="once">最初の1回だけ</span></h2></header>
+    <ol>
+      <li>Claude アプリの左上メニューから「Code」</li>
+      <li>「New session」</li>
+      <li>GitHub につなぐよう言われたら、そのまま進んで許可する</li>
+      <li>「Approve, Install, &amp; Authorize Claude」の画面が出たら、「All repositories」のまま緑のボタンを押す</li>
+    </ol>
+    <p class="hint">この画面はここで出ないこともあります。その場合は、あとで「反映して」と言ったときに Claude が「アクセス権がない」と言ってリンクを出してくるので、そのリンクを開いて同じ画面で許可すれば OK です。許可したら、もう一度「反映して」。</p>
+    <div class="shot two">
+      <figure><img src="./img/s3-code.png" alt="Claude アプリのメニューにある Code"><figcaption>メニューの中の Code</figcaption></figure>
+      <figure><img src="./img/s3-newsession.png" alt="Code 画面の New session ボタン"><figcaption>右下の New session</figcaption></figure>
+      <figure><img src="./img/s3-install.png" alt="Claude の GitHub App をインストールする画面"><figcaption>①All repositories のまま ②緑のボタン</figcaption></figure>
+      <figure><img src="./img/t-noaccess.png" alt="push がアクセス権がないと断られた画面"><figcaption>あとから出たときはこう言われる。リンクを開けば上の画面になる</figcaption></figure>
+    </div>
+    <p class="hint">「Code」が見当たらないときは、Claude のプランが有料になっているか確かめてください。</p>
+  </section>
+
+  <!-- 4 -->
+  <section class="step" id="s4">
+    <header><span class="num">4</span><h2>最初の指示を送る<span class="once">最初の1回だけ</span></h2></header>
+    <ol>
+      <li>入力欄の上の「Add repository」を押す</li>
+      <li>一覧からステップ 1 で作ったリポジトリを選ぶ</li>
+      <li>下の文をそのままコピーして貼り付けて送る</li>
+    </ol>
+    <div class="shot two">
+      <figure><img src="./img/s4-addrepo.png" alt="New Session 画面の Add repository ボタン"><figcaption>Add repository</figcaption></figure>
+      <figure><img src="./img/s4-pick.png" alt="リポジトリの一覧"><figcaption>自分のリポジトリを選ぶ</figcaption></figure>
+      <figure><img src="./img/s4-session.png" alt="リポジトリを選んだあとの画面"><figcaption>①名前が出ていれば OK ②ここに貼る</figcaption></figure>
+    </div>
+<pre class="say long"><button class="copy" type="button" data-copy>コピー</button><span class="lbl">最初に貼る文</span>このリポジトリで GitHub Pages のサイトを作ります。次のルールを CLAUDE.md に保存して、以後ずっと守ってください。
+
+- 入口は index.html 1ファイル。CSS と JavaScript もその中に書く。
+- 画像などへのパスは相対パス（./img/a.png の形）にする。
+- ブランチは main だけ。新しいブランチや PR は作らない。
+- 私が「反映して」と言ったら、変更を commit して main に push する。commit メッセージは日本語で一行。
+- push したら公開 URL を一行で返す。
+- 私はプログラミング初心者。専門用語を使わず短く説明する。変更点は「画面のどこがどう変わるか」で言う。迷ったら選択肢を2つに絞って聞く。
+
+保存できたら、まず「Hello World」「これはサンプルページです」とだけ表示されるシンプルな index.html を作ってください。</pre>
+    <p>Claude が作業している間は待つだけです。アプリを閉じても作業は続きます。</p>
+  </section>
+
+  <!-- 5 -->
+  <section class="step" id="s5">
+    <header><span class="num">5</span><h2>「反映して」と言う</h2></header>
+    <p>できあがったら、こう送ります。</p>
+    <p class="say"><span class="lbl">これだけ</span>反映して</p>
+    <p>Claude がサイトを更新して、URL を返します。1〜2 分待ってから URL を開いてください。</p>
+    <div class="shot two">
+      <figure><img src="./img/s5-url.png" alt="反映後に URL が返ってきた画面"><figcaption>①Pushed to main と出て ②URL が返ってくる</figcaption></figure>
+      <figure><img src="./img/s5-site.png" alt="公開されたテストサイト"><figcaption>URL を開くとこうなる</figcaption></figure>
+    </div>
+    <p class="hint">はじめての「反映して」のあとは、公開されるまで数分かかることがあります。</p>
+  </section>
+
+  <!-- 6 -->
+  <section class="step" id="s6">
+    <header><span class="num">6</span><h2>直したいところを伝える</h2></header>
+    <p>サンプルページが見えたら、ここからが本番です。同じ画面で続けて、作りたいものを書くだけ。できたらまた「反映して」。この繰り返しがサイト作りです。</p>
+    <p class="say"><span class="lbl">例えば</span>気仙沼の朝市を紹介するページにして。場所、時間、見どころを載せて、スマホで見やすく。
+反映して</p>
+    <p class="say"><span class="lbl">さらに</span>文字をもう少し大きくして。見出しの色を海っぽい青にして。
+反映して</p>
+    <ul>
+      <li>何が変わったかは、Claude が画面の言葉で説明してくれます</li>
+      <li>うまく伝わらないときは、サイトのスクショを貼って「ここ」と言うと早いです</li>
+      <li>前の画面は Code の一覧に残っています。見つからなければ New session で同じリポジトリを選べば続きができます。ルールは CLAUDE.md に残っています</li>
+    </ul>
+    <div class="shot two">
+      <figure><img src="./img/s6-sessions.png" alt="Code 画面のセッション一覧"><figcaption>前の作業はここに残っている</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="trouble">
+    <h2>困ったとき</h2>
+    <dl>
+      <dt>「アクセス権がない」と言われて反映できない</dt>
+      <dd>Claude が出してくるリンクを開いて、「Approve, Install, &amp; Authorize」を押す（ステップ 3 の画面）。リンクが出てこなければ <a href="https://claude.ai/customize/connectors">claude.ai/customize/connectors</a> で自分の名前の横の「Fix」。そのあと、もう一度「反映して」。</dd>
+      <dt>「反映して」と言ったのにサイトが変わらない</dt>
+      <dd>1〜2 分待って、ブラウザを再読み込み。それでもダメなら Claude に「main に push できた？」と聞く。</dd>
+      <dt>URL を開くと 404 と出る</dt>
+      <dd>ステップ 2 の Pages 設定が「main」になっているか確認。</dd>
+      <dt>Code タブにリポジトリが出てこない</dt>
+      <dd>リポジトリが Public になっているか確認。ステップ 3 の GitHub 連携をやり直す。</dd>
+      <dt>Claude が英語で返してくる</dt>
+      <dd>「日本語で」と一言送る。</dd>
+    </dl>
+  </section>
+
+  <footer>
+    Hackatsuon 2026 / 気仙沼　スクショは Android 版 Claude アプリのものです。画面の見た目はアプリの更新で変わることがあります。
+  </footer>
+</main>
+
+<script>
+document.querySelectorAll('[data-copy]').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    var box=btn.parentElement.cloneNode(true);
+    box.querySelector('.copy').remove();
+    box.querySelector('.lbl').remove();
+    var text=box.textContent.trim();
+    var done=function(){btn.textContent='コピーしました';setTimeout(function(){btn.textContent='コピー';},1500);};
+    if(navigator.clipboard&&navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(done,function(){fallback(text);done();});
+    }else{fallback(text);done();}
+  });
+});
+function fallback(t){
+  var ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';
+  document.body.appendChild(ta);ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);
+}
+</script>
 </body>
 </html>
